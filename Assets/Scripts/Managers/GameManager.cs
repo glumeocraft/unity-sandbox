@@ -39,8 +39,10 @@ public class GameManager : MonoBehaviour
                 UpdateGameState(GameState.Move);
                 break;
             case GameState.Move:
+                MenuManager.Instance.EnableEndMoveButton();
                 break;
             case GameState.Fight:
+                MenuManager.Instance.DisableEndMoveButton();
                 break;
         }
 
@@ -51,10 +53,21 @@ public class GameManager : MonoBehaviour
 
     public enum GameState
     {
-        SetUp,
-        GenerateWorld,
-        SpawnUnits,
-        Move,
-        Fight
+        SetUp = 1,
+        GenerateWorld = 2,
+        SpawnUnits = 3,
+        Move = 4,
+        Fight = 5
+    }
+
+    public void EndMove()
+    {
+        UpdateGameState(GameState.Fight);
+    }
+
+    public void Restart()
+    {
+        GridManager.Instance.DestoryGrid();
+        UpdateGameState(GameState.GenerateWorld);
     }
 }

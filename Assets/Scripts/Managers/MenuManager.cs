@@ -8,11 +8,16 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
 
-    [SerializeField] private GameObject _selectedUnitObject, _tileInfoObject, _tileArmyInfoObject;
+    [SerializeField] private GameObject _selectedUnitObject, _tileInfoObject, _tileArmyInfoObject, _gameStateInfoObject, _restartButton, _exitButton, _endMoveButton;
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Update()
+    {
+        _gameStateInfoObject.GetComponentInChildren<TextMeshProUGUI>().text = $"Game state: {GameManager.Instance.State}";
     }
 
     public void ShowSelectedUnit(BaseUnit unit)
@@ -40,9 +45,24 @@ public class MenuManager : MonoBehaviour
 
         if (tile.OccupiedArmies.Count > 0)
         {
-            _tileArmyInfoObject.GetComponentInChildren<TextMeshProUGUI>().text = $"Armies: \n{tile.GetOccupiedUnitsNames()}";
+            _tileArmyInfoObject.GetComponentInChildren<TextMeshProUGUI>().text = $"Armies there: \n{tile.OccupiedArmies.Count}";
             _tileArmyInfoObject.SetActive(true);
         }
         else { _tileArmyInfoObject.SetActive(false); }
+    }
+
+    public void EnableEndMoveButton()
+    {
+        _endMoveButton.SetActive(true);
+    }
+
+    public void DisableEndMoveButton()
+    {
+        _endMoveButton.SetActive(false);
+    }
+
+    private void OnEndMoveButtonClick()
+    {
+
     }
 }

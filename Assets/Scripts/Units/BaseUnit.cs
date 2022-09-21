@@ -13,4 +13,14 @@ public class BaseUnit : MonoBehaviour
         if (GameManager.Instance.State != GameManager.GameState.Move) return;
         UnitManager.Instance.SetSelectedArmy(this);
     }
+
+    private void OnMouseEnter()
+    {
+        OccupiedTile.OnMouseEnter();
+    }
+
+    private void OnMouseExit()
+    {
+        OccupiedTile.OnMouseExit();
+    }
 }

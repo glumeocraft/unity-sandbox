@@ -30,7 +30,7 @@ public class GridManager : MonoBehaviour
                 //set horizontal difference
                 float y;
                 if (j % 2 == 0) y = (i * horizontalSize) + horizontalSize / 2;
-                else y = (i*horizontalSize) + horizontalSize;
+                else y = (i * horizontalSize) + horizontalSize;
 
                 //set vertical difference
                 float x;
@@ -75,5 +75,21 @@ public class GridManager : MonoBehaviour
     public Tile GetTeam3SpawnTile()
     {
         return _tiles.Where(t => t.Key.x == 6).OrderBy(t => Random.value).First().Value;
+    }
+
+    public void DestoryGrid()
+    {
+        foreach (var key in _tiles.Keys)
+        {
+            if (_tiles[key].OccupiedArmies.Count > 0)
+            {
+                foreach (var army in _tiles[key].OccupiedArmies)
+                {
+                    Destroy(army.gameObject);
+                }
+            }
+            Destroy(_tiles[key].gameObject);
+        }
+        _tiles.Clear();
     }
 }

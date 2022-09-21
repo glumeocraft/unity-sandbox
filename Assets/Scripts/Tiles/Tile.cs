@@ -13,13 +13,13 @@ public class Tile : MonoBehaviour
     {
         OccupiedArmies = new List<BaseUnit>();
     }
-    private void OnMouseEnter()
+    public void OnMouseEnter()
     {
         _highlight.SetActive(true);
         MenuManager.Instance.ShowHoveredTileInfo(this);
     }
 
-    private void OnMouseExit()
+    public void OnMouseExit()
     {
         _highlight.SetActive(false);
         MenuManager.Instance.ShowHoveredTileInfo(null);
@@ -27,8 +27,22 @@ public class Tile : MonoBehaviour
 
     public void SetUnit(BaseUnit unit)
     {
-        if (unit.OccupiedTile != null) unit.OccupiedTile.OccupiedArmies.Clear();
+        if (unit.OccupiedTile != null) 
+        {
+            unit.OccupiedTile.OccupiedArmies.Remove(unit);
+            int count = 0;
+            foreach (var remainingUnit in unit.OccupiedTile.OccupiedArmies)
+            {
+                
+                Debug.Log($"{remainingUnit.UnitName}: I remained here!");
+                AdjustRemainingUnitPosition(remainingUnit, count);
+                count++;
+            }
+        }
+
         OccupiedArmies.Add(unit);
+        SetUnitPosition(unit);
+
         unit.OccupiedTile = this;
     }
 
@@ -42,5 +56,31 @@ public class Tile : MonoBehaviour
     public string GetOccupiedUnitsNames()
     {
         return string.Join("\n", OccupiedArmies.Select(x => x.UnitName));
+    }
+
+    private void AdjustRemainingUnitPosition(BaseUnit unit, int count)
+    {
+        unit.transform.position = unit.OccupiedTile.transform.position + new Vector3(0, 0, -0.1f); ;
+        if (count == 1)
+        {
+            unit.transform.position = unit.transform.position + new Vector3(0.25f, 0, 0);
+        }
+        else if (count == 2)
+        {
+            unit.transform.position = unit.transform.position + new Vector3(-0.25f, 0, 0);
+        }
+    }
+
+    private void SetUnitPosition(BaseUnit unit)
+    {
+        unit.transform.position = transform.position + new Vector3(0, 0, -0.1f);
+        if (OccupiedArmies.Count == 2)
+        {
+            unit.transform.position = unit.transform.position + new Vector3(0.25f, 0, 0);
+        }
+        else if (OccupiedArmies.Count == 3)
+        {
+            unit.transform.position = unit.transform.position + new Vector3(-0.25f, 0, 0);
+        }
     }
 }
