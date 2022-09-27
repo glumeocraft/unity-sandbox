@@ -70,4 +70,9 @@ public class GameManager : MonoBehaviour
         GridManager.Instance.DestoryGrid();
         UpdateGameState(GameState.GenerateWorld);
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
