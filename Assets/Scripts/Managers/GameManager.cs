@@ -33,9 +33,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.SpawnUnits:
                 Debug.Log("Game state update to spawn units started");
-                UnitManager.Instance.SpawnTeam1();
-                UnitManager.Instance.SpawnTeam2();
-                UnitManager.Instance.SpawnTeam3();
+                UnitManager.Instance.SpawnBlueArmy();
+                UnitManager.Instance.SpawnRedArmy();
+                UnitManager.Instance.SpawnPinkArmy();
                 UpdateGameState(GameState.Move);
                 break;
             case GameState.Move:

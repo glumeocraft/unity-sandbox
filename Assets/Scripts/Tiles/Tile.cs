@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject _highlight;
     public List<BaseUnit> OccupiedArmies;
     public string TileName;
+    public bool Playable;
 
     private void Awake()
     {
@@ -15,14 +16,37 @@ public class Tile : MonoBehaviour
     }
     public void OnMouseEnter()
     {
-        _highlight.SetActive(true);
-        MenuManager.Instance.ShowHoveredTileInfo(this);
+        if (Playable)
+        {
+            _highlight.SetActive(true);
+            MenuManager.Instance.ShowHoveredTileInfo(this);
+        }
     }
 
     public void OnMouseExit()
     {
-        _highlight.SetActive(false);
-        MenuManager.Instance.ShowHoveredTileInfo(null);
+        if (Playable)
+        {
+            _highlight.SetActive(false);
+            MenuManager.Instance.ShowHoveredTileInfo(null);
+        }
+
+    }
+
+    private void OnMouseDown()
+    {
+        if (Playable)
+        {
+            if (GameManager.Instance.State != GameManager.GameState.Move || UnitManager.Instance.SelectedArmy == null) return;
+            var selectedArmy = UnitManager.Instance.SelectedArmy;
+            SetUnit(selectedArmy);
+            foreach (var soldier in selectedArmy.soldiers)
+            {
+                soldier.gameObject.SetActive(false);
+            }
+            UnitManager.Instance.SetSelectedArmy(null);
+        }
+
     }
 
     public void SetUnit(BaseUnit unit)
@@ -44,13 +68,6 @@ public class Tile : MonoBehaviour
         SetUnitPosition(unit);
 
         unit.OccupiedTile = this;
-    }
-
-    private void OnMouseDown()
-    {
-        if (GameManager.Instance.State != GameManager.GameState.Move || UnitManager.Instance.SelectedArmy == null) return;
-        SetUnit(UnitManager.Instance.SelectedArmy);
-        UnitManager.Instance.SetSelectedArmy(null);
     }
 
     public string GetOccupiedUnitsNames()
