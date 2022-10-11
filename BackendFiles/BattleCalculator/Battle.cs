@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using static BattleCalculator.Program;
 
 namespace BattleCalculator
@@ -13,16 +12,16 @@ namespace BattleCalculator
         public void SimulateBattle(List<Unit> firstPlayerUnits, List<Unit> secondPlayerUnits)
         {
             // Get AttackStrength
-            var player1AttackStrength = SumStrengthOfAPlayer(firstPlayerUnits, Moves.Attack);
+            var player1AttackStrength = SumAttackRoll(firstPlayerUnits);
             Console.WriteLine("Player1AttackRoll: " + player1AttackStrength);
-            var player2AttackStrength = SumStrengthOfAPlayer(secondPlayerUnits, Moves.Attack);
+            var player2AttackStrength = SumAttackRoll(secondPlayerUnits);
             Console.WriteLine("Player2AttackRoll: " + player2AttackStrength);
 
             // Get DefenseStrength
-            var player1DefenseStrength = SumStrengthOfAPlayer(firstPlayerUnits, Moves.Defense);
+            var player1DefenseStrength = SumDefenseRoll(firstPlayerUnits);
             Console.WriteLine("Player1DefenseRoll: " + player1DefenseStrength);
 
-            var player2DefenseStrength = SumStrengthOfAPlayer(firstPlayerUnits, Moves.Defense);
+            var player2DefenseStrength = SumDefenseRoll(secondPlayerUnits);
             Console.WriteLine("Player2DefenseRoll: " + player2DefenseStrength);
 
             // Calculate Attacks, Defense
@@ -54,35 +53,34 @@ namespace BattleCalculator
 
         }
 
-        private int SumStrengthOfAPlayer(List<Unit> units, Moves whatAreWeSuming)
+        public int SumAttackRoll(List<Unit> units)
         {
-            int baseValue = 0;
-            int defendingUnitsNumber = 0;
+            int attackRoll = 0;
             foreach (var unit in units)
             {
-                if (whatAreWeSuming == Moves.Attack)
+                attackRoll += unit.Attack;
+                if (unit.CurrentMove == Moves.Attack)
                 {
-                    baseValue += unit.Attack;
+                    attackRoll += 2;
                 }
-                if (whatAreWeSuming == Moves.Defense)
-                {
-                    baseValue += unit.Defense;
-                }
-                if (unit.CurrentMove == whatAreWeSuming)
-                {
-                    baseValue++;
+            }
+            return attackRoll;
+        }
 
-                    if (whatAreWeSuming == Moves.Attack)
-                    {
-                        baseValue++;
-                    }
+        public int SumDefenseRoll(List<Unit> units)
+        {
+            int defendingUnitsNumber = 0;
+            int defenseRoll = 0;
+            foreach (var unit in units)
+            {
+                defenseRoll += unit.Defense;
+                if (unit.CurrentMove == Moves.Defense)
+                {
+                    defendingUnitsNumber++;
                 }
             }
-            if (whatAreWeSuming == Moves.Defense)
-            {
-                baseValue += defendingUnitsNumber;
-            }
-            return baseValue;
+            defenseRoll += defendingUnitsNumber;
+            return defenseRoll;
         }
 
         private int CalculateAttack(int attackStrength)
@@ -121,9 +119,12 @@ namespace BattleCalculator
                 Console.WriteLine("Player " + unit.UserId + "'s Resistance: " + resistance);
 
                 // Damaging unit
+                if (damage < 0)
+                {
+                    damage = 0;
+                }
                 unit.Hp -= damage;
                 Console.WriteLine("Player " + unit.UserId + "'s remaining HP is: " + unit.Hp);
-
             }
         }
     }

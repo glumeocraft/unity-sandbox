@@ -7,69 +7,26 @@ namespace BattleCalculator
     {
         static void Main(string[] args)
         {
-
-            /* Console.WriteLine("Please enter the number of users: ");
-            var userNumber = Console.ReadLine();
-
-            Console.WriteLine("Enter the number of unit for user 1#");
-            var user1NumberOFUnit = int.Parse(Console.ReadLine());
-
-            for (int i = 0; i < user1NumberOFUnit; i++)
-            {
-                var unit = new Unit(i);
-                Console.WriteLine("Enter the attributes of the #" + i + "unit, enter it's Attack value:");
-                unit.Attack = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter the attributes of the #" + i + "unit, enter it's Defense value:");
-                unit.Defense = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter the attributes of the #" + i + "unit, enter it's Special value:");
-                unit.Special = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter the attributes of the #" + i + "unit, enter it's Direction value:");
-                unit.Direction = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter the attributes of the #" + i + "unit. Enter it's NewEntry true or false?:");
-                unit.NewEntry = bool.Parse(Console.ReadLine());
-
-                // mit csinálsz velük
-
-                Console.WriteLine("THANKS NEXT USER%%!!!!");
-            }
-
-            Console.WriteLine("Enter the number of unit for user 2#");
-            var user2NumberOFUnit = int.Parse(Console.ReadLine());
-
-            for (int i = 0; i < user2NumberOFUnit; i++)
-            {
-                var unit = new Unit(i);
-                Console.WriteLine("Enter the attributes of the #" + i + "unit, enter it's Attack value:");
-                unit.Attack = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter the attributes of the #" + i + "unit, enter it's Defense value:");
-                unit.Defense = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter the attributes of the #" + i + "unit, enter it's Special value:");
-                unit.Special = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter the attributes of the #" + i + "unit, enter it's Direction value:");
-                unit.Direction = int.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter the attributes of the #" + i + "unit. Enter it's NewEntry true or false?:");
-                unit.NewEntry = bool.Parse(Console.ReadLine());
-
-                // mit csinálsz velük
-                Console.WriteLine("THANKS NEXT USER%%!!!!");
-            }
-            */
+            // Creating Armies
             var sampleUnit1 = new Unit(1);
+            var player1Army = new List<Unit>() { sampleUnit1 };
             var sampleUnit2 = new Unit(2);
+            var player2Army = new List<Unit>() { sampleUnit2 };
+            var participants = new List<List<Unit>> { player1Army, player2Army };
             var turn = 0;
             var firstBattle = new Battle();
+
             do
             {
+                foreach (var player in participants)
+                {
+                    PromptForMove(player);
+                }
+
                 turn++;
-                firstBattle.SimulateBattle(new List<Unit>() { sampleUnit1 }, new List<Unit> { sampleUnit2 });
+                firstBattle.SimulateBattle(player1Army, player2Army);
                 Console.WriteLine("Unit1's HP: " + sampleUnit1.Hp + " Unit2's HP: " + sampleUnit2.Hp);
-                Console.WriteLine("Turn #:  " + turn);
+                Console.WriteLine("Turn number: " + turn);
                 if (sampleUnit1.Hp <= 0)
                 {
                     Console.WriteLine("Player 1 Died!");
@@ -84,6 +41,17 @@ namespace BattleCalculator
 
         }
 
+        private static void PromptForMove(List<Unit> army)
+        {
+            int i = 1;
+            foreach (var unit in army)
+            {
+                Console.WriteLine("Enter Player " + unit.UserId + "'s #" + i + " unit's next move: ");
+                unit.CurrentMove = (Moves)int.Parse(Console.ReadLine());
+                i++;
+            }
+        }
+
         public class Unit
         {
             public Unit(int userId)
@@ -95,7 +63,7 @@ namespace BattleCalculator
             public int Defense { get; set; } = 1;
             public int Armor { get; set; } = 1;
             public int Special { get; set; } = 1;
-            public int Hp { get; set; } = 10;
+            public int Hp { get; set; } = 30;
             public int UserId { get; set; }
             public string Egyeb { get; set; }
             public bool NewEntry { get; set; } = false;
