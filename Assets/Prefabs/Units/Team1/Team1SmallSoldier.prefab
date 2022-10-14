@@ -326,12 +326,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3e0e836e90d14428be83f66cbf996e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 10
-  Speed: 3
-  Attack: 3
-  Defense: 100
+  Health: 25
+  Speed: 2
+  Attack: 6
+  Defense: 4
   SpecialAtk: 0
-  Name: Blue dick
+  Armor: 3
+  Name: Blue dick (Phalanx)
   Moved: 0
 --- !u!1 &8061865608878205166
 GameObject:

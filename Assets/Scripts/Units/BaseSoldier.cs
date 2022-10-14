@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseSoldier : MonoBehaviour
 {
-    public int Health, Speed, Attack, Defense, SpecialAtk;
+    public int Health, Speed, Attack, Defense, SpecialAtk, Armor;
     public string Name;
     public bool Moved;
 

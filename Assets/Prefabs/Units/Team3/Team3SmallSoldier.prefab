@@ -326,12 +326,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678b7d9e51a5a084bad5f78c8c923091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 7
+  Health: 25
   Speed: 2
-  Attack: 2
-  Defense: 1
+  Attack: 7
+  Defense: 4
   SpecialAtk: 2
-  Name: Pink Based
+  Armor: 2
+  Name: Pink Based AKA Average Joe
   Moved: 0
 --- !u!1 &8061865608878205166
 GameObject:

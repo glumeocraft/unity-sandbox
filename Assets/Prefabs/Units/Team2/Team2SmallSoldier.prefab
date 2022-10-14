@@ -326,12 +326,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc14c74e6dddde44847c95fbf4ee953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 4
+  Health: 25
   Speed: 3
-  Attack: 2
+  Attack: 8
   Defense: 2
   SpecialAtk: 2
-  Name: Red Dit
+  Armor: 3
+  Name: Crazy Barbarian Acolyte
   Moved: 0
 --- !u!1 &8061865608878205166
 GameObject:
