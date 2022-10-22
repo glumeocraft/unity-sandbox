@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Fight:
                 MenuManager.Instance.DisableEndMoveButton();
+                BattleManager.Instance.StartFights();
                 break;
         }
 

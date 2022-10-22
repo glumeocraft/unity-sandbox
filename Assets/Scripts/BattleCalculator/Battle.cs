@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using static BattleCalculator.Program;
+using UnityEngine;
 
 namespace BattleCalculator
 {
-    public class Battle
+    public class Battle : MonoBehaviour
     {
-        Random random = new Random();
-        public Terrain Terrain { get; set; } = Terrain.Plain;
+        System.Random random = new System.Random();
+        public Program.Terrain Terrain { get; set; } = Program.Terrain.Plain;
 
         public void SimulateBattle(List<Unit> firstPlayerUnits, List<Unit> secondPlayerUnits)
         {

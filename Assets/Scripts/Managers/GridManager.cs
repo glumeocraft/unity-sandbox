@@ -107,4 +107,17 @@ public class GridManager : MonoBehaviour
         }
         _tiles.Clear();
     }
+
+    public List<Tile> GetBattleTiles()
+    {
+        List<Tile> tilesWithBattle = new List<Tile>();
+        foreach (var key in _tiles.Keys)
+        {
+            if (_tiles[key].OccupiedArmies.Count >= 2)
+            {
+                tilesWithBattle.Add(_tiles[key]);
+            }
+        }
+        return tilesWithBattle;
+    }
 }
