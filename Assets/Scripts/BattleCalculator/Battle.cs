@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BattleCalculator
 {
-    public class Battle : MonoBehaviour
+    public class Battle
     {
         System.Random random = new System.Random();
         public Program.Terrain Terrain { get; set; } = Program.Terrain.Plain;

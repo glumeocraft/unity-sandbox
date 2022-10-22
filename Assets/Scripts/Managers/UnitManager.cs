@@ -97,7 +97,7 @@ public class UnitManager : MonoBehaviour
         {
             foreach (var soldier in unit.soldiers)
             {
-                soldier.GetComponentInChildren<TextMeshProUGUI>().text = $"Attack: {soldier.Attack} , Defense: {soldier.Defense} , Special: {soldier.SpecialAtk} , Speed: {soldier.Speed} , Health: {soldier.Health} , Moved: {soldier.Moved}";
+                soldier.GetComponentInChildren<TextMeshProUGUI>().text = $"Attack: {soldier.AttackValue} , Defense: {soldier.DefenseValue} , Special: {soldier.SpecialValue} , Speed: {soldier.Speed} , Health: {soldier.Hp} , Moved: {soldier.Moved}";
                 soldier.gameObject.SetActive(true);
             }
         } 
