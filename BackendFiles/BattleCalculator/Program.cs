@@ -16,10 +16,10 @@ namespace BattleCalculator
             // sok játékosnál összekéne adni az attackRollokat *0.65% és defenseRoll is!
             // Creating Armies
             var sampleUnit1 = new convictor(1);
-            var player1Army = new List<Unit>() { sampleUnit1 };
+            var player1Army = new List<IUnit>() { sampleUnit1 };
             var sampleUnit2 = new doogariteAcolytes(2);
-            var player2Army = new List<Unit>() { sampleUnit2 };
-            var participants = new List<List<Unit>> { player1Army, player2Army };
+            var player2Army = new List<IUnit>() { sampleUnit2 };
+            var participants = new List<List<IUnit>> { player1Army, player2Army };
             var turn = 0;
             var firstBattle = new Battle();
 
@@ -48,7 +48,7 @@ namespace BattleCalculator
 
         }
 
-        private static void PromptForMove(List<Unit> army)
+        private static void PromptForMove(List<IUnit> army)
         {
             int i = 1;
             foreach (var unit in army)

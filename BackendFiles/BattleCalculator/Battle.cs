@@ -9,7 +9,7 @@ namespace BattleCalculator
         Random random = new Random();
         public Terrain Terrain { get; set; } = Terrain.Plain;
 
-        public List<List<Unit>> SimulateBattle(List<Unit> firstPlayerUnits, List<Unit> secondPlayerUnits)
+        public List<List<IUnit>> SimulateBattle(List<IUnit> firstPlayerUnits, List<IUnit> secondPlayerUnits)
         {
             // Get AttackStrength
             var player1AttackPower = SumAttackPower(firstPlayerUnits);
@@ -50,10 +50,10 @@ namespace BattleCalculator
             // Calculate Damage
             CalculateDamageForAPlayer(firstPlayerUnits, player2Hit);
             CalculateDamageForAPlayer(secondPlayerUnits, player1Hit);
-            return new List<List<Unit>> { firstPlayerUnits, secondPlayerUnits };
+            return new List<List<IUnit>> { firstPlayerUnits, secondPlayerUnits };
         }
 
-        public int SumAttackPower(List<Unit> units)
+        public int SumAttackPower(List<IUnit> units)
         {
             int attackPower = 0;
             foreach (var unit in units)
@@ -86,7 +86,7 @@ namespace BattleCalculator
             return 0;
         }
 
-        public int SumDefensePower(List<Unit> units)
+        public int SumDefensePower(List<IUnit> units)
         {
             int defendingUnitsNumber = 0;
             int defensePower = 0;
@@ -136,7 +136,7 @@ namespace BattleCalculator
         
         }
 
-        private void CalculateDamageForAPlayer(List<Unit> units, int enemyHit)
+        private void CalculateDamageForAPlayer(List<IUnit> units, int enemyHit)
         {
             foreach (var unit in units)
             {

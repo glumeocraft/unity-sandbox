@@ -11,9 +11,9 @@ namespace BattleCalculator
     {
 
         [Theory(DisplayName = "Should run battlecalculator")]
-        [InlineData(1161)]
+        [InlineData(10)]
         [InlineData(1)]
-        public void RunBattleCalculator(int value)
+        public void RunBattleCalculator(int turns)
         {
             // Arrange
             // Unit választás
@@ -26,7 +26,24 @@ namespace BattleCalculator
 
             // Act
             var battle = new Battle();
-            var resultArmies = battle.SimulateBattle(player1Army, player2Army);
+            int deadCount;
+            for (int i = 0; i < turns; i++)
+            {
+                var resultArmies = battle.SimulateBattle(player1Army, player2Army);
+                foreach (var army in resultArmies)
+                {
+                    foreach (var unit in army)
+                    {
+                        if (unit.Hp <= 0)
+                        {
+
+                        }
+                    }
+                    
+
+                }
+                
+            }
 
 
             // Assert
