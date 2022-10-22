@@ -8,7 +8,7 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
 
-    [SerializeField] private GameObject _selectedUnitObject, _tileInfoObject, _tileArmyInfoObject, _gameStateInfoObject, _restartButton, _exitButton, _endMoveButton;
+    [SerializeField] private GameObject _selectedUnitObject, _tileInfoObject, _tileArmyInfoObject, _gameStateInfoObject, _restartButton, _exitButton, _endMoveButton, _soldiersInfoObject;
 
     private void Awake()
     {
@@ -18,6 +18,16 @@ public class MenuManager : MonoBehaviour
     private void Update()
     {
         _gameStateInfoObject.GetComponentInChildren<TextMeshProUGUI>().text = $"Game state: {GameManager.Instance.State}";
+        foreach (var army in UnitManager.Instance.AllArmies)
+        {
+            foreach (var soldier in army.soldiers)
+            {
+                if (soldier.gameObject.activeSelf)
+                {
+                    //soldier.GetComponentInChildren<TextMeshProUGUI>().text = $"Attack: {soldier.Attack} , Defense: {soldier.Defense} , Special: {soldier.SpecialAtk} , Speed: {soldier.Speed} , Health: {soldier.Health} , Moved: {soldier.Moved}";
+                }
+            }
+        }
     }
 
     public void ShowSelectedUnit(BaseUnit unit)
@@ -27,7 +37,7 @@ public class MenuManager : MonoBehaviour
             _selectedUnitObject.SetActive(false);
             return;
         }
-        _selectedUnitObject.GetComponentInChildren<TextMeshProUGUI>().text = $"Selected unit: {unit.UnitName}";
+        _selectedUnitObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{unit.UnitName}";
         _selectedUnitObject.SetActive(true);
     }
 
@@ -64,5 +74,10 @@ public class MenuManager : MonoBehaviour
     private void OnEndMoveButtonClick()
     {
 
+    }
+
+    public GameObject GetSoldiersInfoObject()
+    {
+        return _soldiersInfoObject;
     }
 }

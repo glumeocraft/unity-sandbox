@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 281a5e38303dc564b9d2fbf8a5a353b5, type: 3}
-  m_Name: Team2Small
+  m_Script: {fileID: 11500000, guid: 4a391faadcadb9540af5eb49f7767e24, type: 3}
+  m_Name: Team2SmallSoldier
   m_EditorClassIdentifier: 
-  Faction: 2
-  UnitPrefab: {fileID: 3831728170369678689, guid: 716760ec4754c6e4398346a3eb8cd4f6, type: 3}
+  SoldierPrefab: {fileID: -6057518829578589715, guid: aac92bd17be614341b1136b6038474fd, type: 3}

@@ -46,6 +46,13 @@ public class GridManager : MonoBehaviour
                 //spawn tile
                 var spawnedTile = Instantiate(randomTile, new Vector3(y, x), Quaternion.identity);
                 spawnedTile.name = $"Tile {i} {j}";
+                if (i > 13)
+                {
+                    spawnedTile.Playable = false;
+                } else
+                {
+                    spawnedTile.Playable = true;
+                }
                 _tiles[new Vector2(i, j)] = spawnedTile;
             }
 
@@ -84,7 +91,15 @@ public class GridManager : MonoBehaviour
             if (_tiles[key].OccupiedArmies.Count > 0)
             {
                 foreach (var army in _tiles[key].OccupiedArmies)
-                {
+                { 
+                    if (army.soldiers.Count > 0)
+                    {
+                        foreach (var soldier in army.soldiers)
+                        {
+                            Destroy(soldier.gameObject);
+                        }
+                        army.soldiers.Clear();
+                    }
                     Destroy(army.gameObject);
                 }
             }
