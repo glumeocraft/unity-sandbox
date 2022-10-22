@@ -1,0 +1,14 @@
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\obj\Debug\netcoreapp3.1\BattleCalculator.csproj.AssemblyReference.cache
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\obj\Debug\netcoreapp3.1\BattleCalculator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\obj\Debug\netcoreapp3.1\BattleCalculator.AssemblyInfoInputs.cache
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\obj\Debug\netcoreapp3.1\BattleCalculator.AssemblyInfo.cs
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\obj\Debug\netcoreapp3.1\BattleCalculator.csproj.CoreCompileInputs.cache
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\bin\Debug\netcoreapp3.1\BattleCalculator.exe
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\bin\Debug\netcoreapp3.1\BattleCalculator.deps.json
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\bin\Debug\netcoreapp3.1\BattleCalculator.runtimeconfig.json
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\bin\Debug\netcoreapp3.1\BattleCalculator.runtimeconfig.dev.json
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\bin\Debug\netcoreapp3.1\BattleCalculator.dll
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\bin\Debug\netcoreapp3.1\BattleCalculator.pdb
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\obj\Debug\netcoreapp3.1\BattleCalculator.dll
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\obj\Debug\netcoreapp3.1\BattleCalculator.pdb
+C:\Users\doram\Desktop\Glume\BattleCalculator\BattleCalculator\obj\Debug\netcoreapp3.1\BattleCalculator.genruntimeconfig.cache
