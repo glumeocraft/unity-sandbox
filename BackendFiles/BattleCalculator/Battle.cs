@@ -12,91 +12,123 @@ namespace BattleCalculator
         public void SimulateBattle(List<Unit> firstPlayerUnits, List<Unit> secondPlayerUnits)
         {
             // Get AttackStrength
-            var player1AttackStrength = SumAttackRoll(firstPlayerUnits);
-            Console.WriteLine("Player1AttackRoll: " + player1AttackStrength);
-            var player2AttackStrength = SumAttackRoll(secondPlayerUnits);
-            Console.WriteLine("Player2AttackRoll: " + player2AttackStrength);
+            var player1AttackPower = SumAttackPower(firstPlayerUnits);
+            Console.WriteLine("Player1AttackPower: " + player1AttackPower);
+            var player2AttackPower = SumAttackPower(secondPlayerUnits);
+            Console.WriteLine("Player2AttackPower " + player2AttackPower);
 
             // Get DefenseStrength
-            var player1DefenseStrength = SumDefenseRoll(firstPlayerUnits);
-            Console.WriteLine("Player1DefenseRoll: " + player1DefenseStrength);
+            var player1DefensePower = SumDefensePower(firstPlayerUnits);
+            Console.WriteLine("Player1DefensePower: " + player1DefensePower);
 
-            var player2DefenseStrength = SumDefenseRoll(secondPlayerUnits);
-            Console.WriteLine("Player2DefenseRoll: " + player2DefenseStrength);
+            var player2DefensePower = SumDefensePower(secondPlayerUnits);
+            Console.WriteLine("Player2DefensePower: " + player2DefensePower);
 
             // Calculate Attacks, Defense
-            var player1Attack = CalculateAttack(player1AttackStrength);
-            Console.WriteLine("Player1Attack: " + player1Attack);
+            var player1AttackRoll = CalculateAttackRoll(player1AttackPower);
+            Console.WriteLine("Player1AttackRoll: " + player1AttackRoll);
 
-            var player2Attack = CalculateAttack(player2AttackStrength);
-            Console.WriteLine("Player2Attack: " + player2Attack);
+            var player2AttackRoll = CalculateAttackRoll(player2AttackPower);
+            Console.WriteLine("Player2AttackRoll: " + player2AttackRoll);
 
 
-            var player1Defense = CalculateDefenseOrArmor(player1DefenseStrength);
-            Console.WriteLine("Player1Defense: " + player1Defense);
+            var player1DefenseRoll = CalculateDefenseOrArmorRoll(player1DefensePower);
+            Console.WriteLine("Player1DefenseRoll: " + player1DefenseRoll);
 
-            var player2Defense = CalculateDefenseOrArmor(player2DefenseStrength);
-            Console.WriteLine("Player2Defense: " + player2Defense);
+            var player2DefenseRoll = CalculateDefenseOrArmorRoll(player2DefensePower);
+            Console.WriteLine("Player2DefenseRoll: " + player2DefenseRoll);
 
             // Calculate Hit
-            var player1Hit = player1Attack - player2Defense;
+            var player1Hit = player1AttackRoll - player2DefenseRoll;
 
             Console.WriteLine("Player1Hit: " + player1Hit);
 
-            var player2Hit = player2Attack - player1Defense;
+            var player2Hit = player2AttackRoll - player1DefenseRoll;
             Console.WriteLine("Player2Hit: " + player2Hit);
 
 
             // Calculate Damage
-            CalculateDamageForAPLayer(firstPlayerUnits, player2Hit);
-            CalculateDamageForAPLayer(secondPlayerUnits, player1Hit);
+            CalculateDamageForAPlayer(firstPlayerUnits, player2Hit);
+            CalculateDamageForAPlayer(secondPlayerUnits, player1Hit);
 
         }
 
-        public int SumAttackRoll(List<Unit> units)
+        public int SumAttackPower(List<Unit> units)
         {
-            int attackRoll = 0;
+            int attackPower = 0;
             foreach (var unit in units)
             {
-                attackRoll += unit.Attack;
+                attackPower += unit.AttackValue;
                 if (unit.CurrentMove == Moves.Attack)
                 {
-                    attackRoll += 2;
+                    attackPower += 2;
+                    attackPower += SuperAttack(unit.UserId);
+                    
                 }
             }
-            return attackRoll;
+            if (units.Count > 1)
+            {
+                var multiUnitModifier = 1.3;
+                attackPower = (int)Math.Round((attackPower / units.Count) * multiUnitModifier);
+            }
+            
+            return attackPower;
         }
 
-        public int SumDefenseRoll(List<Unit> units)
+        private int SuperAttack(int userId)
+        {
+            var randomRoll = random.Next(1, 101);
+            if (randomRoll < 11)
+            {
+                Console.WriteLine("S S S SUPERATTACK!!! +2 AttackRoll for Player#" + userId);
+                return 2;
+            }
+            return 0;
+        }
+
+        public int SumDefensePower(List<Unit> units)
         {
             int defendingUnitsNumber = 0;
-            int defenseRoll = 0;
+            int defensePower = 0;
             foreach (var unit in units)
             {
-                defenseRoll += unit.Defense;
                 if (unit.CurrentMove == Moves.Defense)
                 {
                     defendingUnitsNumber++;
                 }
             }
-            defenseRoll += defendingUnitsNumber;
-            return defenseRoll;
-        }
-
-        private int CalculateAttack(int attackStrength)
-        {
-            int attack = 0;
-            for (int i = 0; i < attackStrength; i++)
+            foreach (var unit in units)
             {
-                attack += random.Next(1, 6);
+                defensePower += unit.DefenseValue;
+                if (unit.CurrentMove == Moves.Defense)
+                {
+                    defensePower += defendingUnitsNumber;
+                }
             }
-            return attack;
+            defensePower =+ (1 * defendingUnitsNumber);
+            if (units.Count > 1)
+            {
+                var multiUnitModifier = 1.3;
+                defensePower = (int)Math.Round((defensePower / units.Count) * multiUnitModifier);
+            }
+
+            return defensePower;
         }
 
-        private int CalculateDefenseOrArmor(int defenseStrength)
+        private int CalculateAttackRoll(int attackPower)
+        {
+            int attackRoll = 0;
+            for (int i = 0; i < attackPower; i++)
+            {
+                attackRoll += random.Next(1, 6);
+            }
+            return attackRoll;
+        }
+
+        private int CalculateDefenseOrArmorRoll(int defensePower)
         {
             int defense = 0;
-            for (int i = 0; i < defenseStrength; i++)
+            for (int i = 0; i < defensePower; i++)
             {
                 defense += random.Next(1, 4);
             }
@@ -104,19 +136,19 @@ namespace BattleCalculator
         
         }
 
-        private void CalculateDamageForAPLayer(List<Unit> units, int enemyHit)
+        private void CalculateDamageForAPlayer(List<Unit> units, int enemyHit)
         {
             foreach (var unit in units)
             {
-                var resistance = unit.Armor;
+                var armorRoll = unit.ArmorValue;
                 if (unit.CurrentMove == Moves.Defense)
                 {
-                    resistance++;
+                    armorRoll++;
                 }
-                resistance = CalculateDefenseOrArmor(resistance);
-                var damage = enemyHit - resistance;
+                armorRoll = CalculateDefenseOrArmorRoll(armorRoll);
+                var damage = enemyHit - armorRoll;
                 Console.WriteLine("Player " + unit.UserId + "'s Damage: " + damage);
-                Console.WriteLine("Player " + unit.UserId + "'s Resistance: " + resistance);
+                Console.WriteLine("Player " + unit.UserId + "'s ArmorRoll: " + armorRoll);
 
                 // Damaging unit
                 if (damage < 0)
