@@ -6,13 +6,13 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [SerializeField] private GameObject _highlight;
-    public List<BaseUnit> OccupiedArmies;
+    public List<BaseArmy> OccupiedArmies;
     public string TileName;
     public bool Playable;
 
     private void Awake()
     {
-        OccupiedArmies = new List<BaseUnit>();
+        OccupiedArmies = new List<BaseArmy>();
     }
     public void OnMouseEnter()
     {
@@ -49,7 +49,7 @@ public class Tile : MonoBehaviour
 
     }
 
-    public void SetUnit(BaseUnit unit)
+    public void SetUnit(BaseArmy unit)
     {
         if (unit.OccupiedTile != null) 
         {
@@ -75,7 +75,7 @@ public class Tile : MonoBehaviour
         return string.Join("\n", OccupiedArmies.Select(x => x.UnitName));
     }
 
-    private void AdjustRemainingUnitPosition(BaseUnit unit, int count)
+    private void AdjustRemainingUnitPosition(BaseArmy unit, int count)
     {
         unit.transform.position = unit.OccupiedTile.transform.position + new Vector3(0, 0, -0.1f); ;
         if (count == 1)
@@ -88,7 +88,7 @@ public class Tile : MonoBehaviour
         }
     }
 
-    private void SetUnitPosition(BaseUnit unit)
+    private void SetUnitPosition(BaseArmy unit)
     {
         unit.transform.position = transform.position + new Vector3(0, 0, -0.1f);
         if (OccupiedArmies.Count == 2)

@@ -326,14 +326,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc14c74e6dddde44847c95fbf4ee953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 25
   Speed: 3
-  Attack: 8
-  Defense: 2
-  SpecialAtk: 2
   Armor: 3
+  Attack: 8
+  Special: 0
+  Health: 25
+  Defense: 2
   Name: Crazy Barbarian Acolyte (red)
-  Moved: 0
+  RemainingActions: 1
 --- !u!1 &8061865608878205166
 GameObject:
   m_ObjectHideFlags: 0

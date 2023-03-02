@@ -6,6 +6,7 @@ public class GridManager : MonoBehaviour
 {
     [SerializeField] private int _width, _height;
     [SerializeField] private Tile _baseTile, _grassTile, _mountainTile, _swampTile;
+    [SerializeField] private GameObject GridParent;
     private Dictionary<Vector2, Tile> _tiles;
     public static GridManager Instance;
 
@@ -46,6 +47,7 @@ public class GridManager : MonoBehaviour
                 //spawn tile
                 var spawnedTile = Instantiate(randomTile, new Vector3(y, x), Quaternion.identity);
                 spawnedTile.name = $"Tile {i} {j}";
+                spawnedTile.transform.parent = GridParent.transform;
                 if (i > 13)
                 {
                     spawnedTile.Playable = false;

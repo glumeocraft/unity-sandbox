@@ -11,8 +11,8 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableArmy> _units;
     private List<ScriptableSoldier> _soldiers;
 
-    public BaseUnit SelectedArmy;
-    public List<BaseUnit> AllArmies;
+    public BaseArmy SelectedArmy;
+    public List<BaseArmy> AllArmies;
 
     private void Awake()
     {
@@ -24,28 +24,24 @@ public class UnitManager : MonoBehaviour
     public void SpawnBlueArmy()
     {
         //spawn army
-        var team1ArmyPrefab = GetFactionBaseUnit<BaseUnit>(Faction.Team1);
+        var team1ArmyPrefab = GetFactionBaseArmy<BaseArmy>(Faction.Team1);
         var spawnedTeam1Army = Instantiate(team1ArmyPrefab);
         var randomSpawnTile = GridManager.Instance.GetTeam1SpawnTile();
         randomSpawnTile.SetUnit(spawnedTeam1Army);
         AllArmies.Add(spawnedTeam1Army);
 
+
         //spawn soldier info
-        int soldierCount = 10;
-        for (int i = 0; i < soldierCount; i++)
-        {
-            var team1SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("blue");
-            var spawnedSoldier = Instantiate(team1SmallSoldierPrefab, MenuManager.Instance.GetSoldiersInfoObject().transform);
-            spawnedSoldier.transform.localPosition = new Vector3(0, spawnedSoldier.transform.localPosition.y - 2, 0);
-            spawnedSoldier.transform.localPosition = new Vector3(0, spawnedSoldier.transform.localPosition.y - i * 52, 0);
-            spawnedTeam1Army.soldiers.Add(spawnedSoldier);
-        }
+        var team1SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("blue");
+        spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
+        spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
+
     }
 
     public void SpawnRedArmy()
     {
         //spawn army
-        var team2ArmyPrefab = GetFactionBaseUnit<BaseUnit>(Faction.Team2);
+        var team2ArmyPrefab = GetFactionBaseArmy<BaseArmy>(Faction.Team2);
         var spawnedTeam2Army = Instantiate(team2ArmyPrefab);
         var randomSpawnTile = GridManager.Instance.GetTeam2SpawnTile();
         randomSpawnTile.SetUnit(spawnedTeam2Army);
@@ -53,14 +49,13 @@ public class UnitManager : MonoBehaviour
 
         //spawn soldier info
         var team1SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("red");
-        var spawnedSoldier = Instantiate(team1SmallSoldierPrefab, MenuManager.Instance.GetSoldiersInfoObject().transform);
-        spawnedTeam2Army.soldiers.Add(spawnedSoldier);
+        spawnedTeam2Army.AddSoldier(team1SmallSoldierPrefab);
     }
 
     public void SpawnPinkArmy()
     {
         //spawn army
-        var team3ArmyPrefab = GetFactionBaseUnit<BaseUnit>(Faction.Team3);
+        var team3ArmyPrefab = GetFactionBaseArmy<BaseArmy>(Faction.Team3);
         var spawnedTeam3Army = Instantiate(team3ArmyPrefab);
         var randomSpawnTile = GridManager.Instance.GetTeam3SpawnTile();
         randomSpawnTile.SetUnit(spawnedTeam3Army);
@@ -68,24 +63,25 @@ public class UnitManager : MonoBehaviour
 
         //spawn soldier info
         var team1SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("pink");
-        var spawnedSoldier = Instantiate(team1SmallSoldierPrefab, MenuManager.Instance.GetSoldiersInfoObject().transform);
-        spawnedTeam3Army.soldiers.Add(spawnedSoldier);
+        spawnedTeam3Army.AddSoldier(team1SmallSoldierPrefab);
     }
 
-    private T GetRandomUnit<T>(Faction faction) where T : BaseUnit
+    /**
+    private T GetRandomUnit<T>(Faction faction) where T : BaseArmy
     {
         return (T)_units.Where(u => u.Faction == faction).OrderBy(o => Random.value).First().UnitPrefab;
     }
-
-    private T GetFactionBaseUnit<T>(Faction faction) where T : BaseUnit
+    **/
+    private T GetFactionBaseArmy<T>(Faction faction) where T : BaseArmy
     {
         return (T)_units.Where(u => u.Faction == faction).First().UnitPrefab;
     }
 
-    public void SetSelectedArmy(BaseUnit unit)
+
+    public void SetSelectedArmy(BaseArmy unit)
     {
         SelectedArmy = unit;
-        MenuManager.Instance.ShowSelectedUnit(unit);
+        MenuManager.Instance.ShowSelectedUnits(unit);
         foreach (var army in AllArmies)
         {
             foreach (var soldier in army.soldiers)
@@ -97,7 +93,7 @@ public class UnitManager : MonoBehaviour
         {
             foreach (var soldier in unit.soldiers)
             {
-                soldier.GetComponentInChildren<TextMeshProUGUI>().text = $"Attack: {soldier.AttackValue} , Defense: {soldier.DefenseValue} , Special: {soldier.SpecialValue} , Speed: {soldier.Speed} , Health: {soldier.Hp} , Moved: {soldier.Moved}";
+                soldier.GetComponentInChildren<TextMeshProUGUI>().text = $"Attack: {soldier.AttackValue} , Defense: {soldier.DefenseValue} , Special: {soldier.SpecialValue} , Speed: {soldier.Speed} , Health: {soldier.Hp} , Moved: {soldier.RemainingActions}";
                 soldier.gameObject.SetActive(true);
             }
         } 

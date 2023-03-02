@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Team1Army : BaseUnit
+public class Team1Army : BaseArmy
 {
     // Start is called before the first frame update
     void Start()

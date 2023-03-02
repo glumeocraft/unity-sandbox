@@ -7,7 +7,8 @@ public class BaseSoldier : MonoBehaviour, IUnit
 {
     public int Speed, Armor, Attack, Special, Health, Defense;
     public string Name;
-    public bool Moved;
+    public int RemainingActions;
+   
     
    
     public int ArmorValue { get; set; }
@@ -29,4 +30,8 @@ public class BaseSoldier : MonoBehaviour, IUnit
         Hp = Health;
     }
 
+    private void OnMouseDown()
+    {
+        Debug.Log($"clicked soldier {Name}");
+    }
 }

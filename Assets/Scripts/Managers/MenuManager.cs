@@ -30,14 +30,14 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void ShowSelectedUnit(BaseUnit unit)
+    public void ShowSelectedUnits(BaseArmy army)
     {
-        if (unit == null)
+        if (army == null)
         {
             _selectedUnitObject.SetActive(false);
             return;
         }
-        _selectedUnitObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{unit.UnitName}";
+        _selectedUnitObject.GetComponentInChildren<TextMeshProUGUI>().text = $"{army.UnitName}";
         _selectedUnitObject.SetActive(true);
     }
 
