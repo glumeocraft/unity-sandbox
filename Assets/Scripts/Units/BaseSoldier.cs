@@ -30,14 +30,10 @@ public class BaseSoldier : MonoBehaviour, IUnit
         Hp = Health;
     }
 
-    public void OnMouseDown()
+    public void SetSoldierForMovement()
     {
-        Debug.Log($"clicked soldier {Name}");
-    }
-
-    public void OnMouseEnter()
-    {
-        Debug.Log("hello");
+        if (RemainingActions < 1) return;
+        UnitManager.Instance.SelectedSoldierForMovement = this;
     }
 
 }

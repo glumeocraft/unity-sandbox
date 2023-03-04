@@ -11,6 +11,7 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableArmy> _units;
     private List<ScriptableSoldier> _soldiers;
 
+    public BaseSoldier SelectedSoldierForMovement;
     public BaseArmy SelectedArmy;
     public List<BaseArmy> AllArmies;
 
@@ -34,7 +35,7 @@ public class UnitManager : MonoBehaviour
         //spawn soldier info
         var team1SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("blue");
         spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
- 
+        spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
 
     }
 
@@ -72,7 +73,7 @@ public class UnitManager : MonoBehaviour
         return (T)_units.Where(u => u.Faction == faction).OrderBy(o => Random.value).First().UnitPrefab;
     }
     **/
-    private T GetFactionBaseArmy<T>(Faction faction) where T : BaseArmy
+    public T GetFactionBaseArmy<T>(Faction faction) where T : BaseArmy
     {
         return (T)_units.Where(u => u.Faction == faction).First().UnitPrefab;
     }

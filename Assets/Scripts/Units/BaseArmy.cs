@@ -33,4 +33,9 @@ public class BaseArmy : MonoBehaviour
         spawnedSoldier.transform.localPosition = new Vector3(0, spawnedSoldier.transform.localPosition.y - soldiers.Count * 52, -0.1f);
         soldiers.Add(spawnedSoldier);
     }
+
+    public void RemoveSoldier(BaseSoldier soldier)
+    {
+        soldiers.Remove(soldier);
+    }
 }

@@ -37,14 +37,54 @@ public class Tile : MonoBehaviour
     {
         if (Playable)
         {
-            if (GameManager.Instance.State != GameManager.GameState.Move || UnitManager.Instance.SelectedArmy == null) return;
+            if (GameManager.Instance.State != GameManager.GameState.Move || !UnitManager.Instance.SelectedSoldierForMovement) return;
+            var selectedUnit = UnitManager.Instance.SelectedSoldierForMovement;
             var selectedArmy = UnitManager.Instance.SelectedArmy;
+            
+            if (!OccupiedArmies.Find(unit => unit.Faction == selectedArmy.Faction))
+            {
+                Debug.Log("no own faction army there!");
+
+                //spawn army
+                var armyPrefab = UnitManager.Instance.GetFactionBaseArmy<BaseArmy>(selectedArmy.Faction);
+                var spawnedArmy = Instantiate(armyPrefab);
+                SetUnit(spawnedArmy);
+                UnitManager.Instance.AllArmies.Add(spawnedArmy);
+                spawnedArmy.AddSoldier(selectedUnit);
+            }
+            else 
+            {
+                var armyToMoveSoldierTo = OccupiedArmies.Find(a => a.Faction == selectedArmy.Faction);
+                armyToMoveSoldierTo.AddSoldier(selectedUnit);
+            }
+
+
+
+
+            foreach (var soldier in selectedArmy.soldiers)
+            {
+                soldier.gameObject.SetActive(false);
+            }
+
+            selectedArmy.RemoveSoldier(selectedUnit);
+            Destroy(selectedUnit.gameObject);
+            if (selectedArmy.soldiers.Count < 1)
+            {
+                selectedArmy.OccupiedTile.RemoveOccupyingArmy(selectedArmy);
+                Destroy(selectedArmy.gameObject);
+            }
+            UnitManager.Instance.SetSelectedArmy(null);
+            UnitManager.Instance.SelectedSoldierForMovement = null;
+
+
+            /**if (OccupiedArmies.Select())
             SetUnit(selectedArmy);
             foreach (var soldier in selectedArmy.soldiers)
             {
                 soldier.gameObject.SetActive(false);
             }
             UnitManager.Instance.SetSelectedArmy(null);
+            */
         }
 
     }
@@ -99,5 +139,10 @@ public class Tile : MonoBehaviour
         {
             unit.transform.position = unit.transform.position + new Vector3(-0.25f, 0, 0);
         }
+    }
+
+    public void RemoveOccupyingArmy(BaseArmy army)
+    {
+        OccupiedArmies.Remove(army);
     }
 }

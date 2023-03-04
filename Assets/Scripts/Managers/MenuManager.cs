@@ -18,7 +18,7 @@ public class MenuManager : MonoBehaviour
     private void Update()
     {
         _gameStateInfoObject.GetComponentInChildren<TextMeshProUGUI>().text = $"Game state: {GameManager.Instance.State}";
-        foreach (var army in UnitManager.Instance.AllArmies)
+        /**foreach (var army in UnitManager.Instance.AllArmies)
         {
             foreach (var soldier in army.soldiers)
             {
@@ -27,7 +27,7 @@ public class MenuManager : MonoBehaviour
                     //soldier.GetComponentInChildren<TextMeshProUGUI>().text = $"Attack: {soldier.Attack} , Defense: {soldier.Defense} , Special: {soldier.SpecialAtk} , Speed: {soldier.Speed} , Health: {soldier.Health} , Moved: {soldier.Moved}";
                 }
             }
-        }
+        }*/
     }
 
     public void ShowSelectedUnits(BaseArmy army)
