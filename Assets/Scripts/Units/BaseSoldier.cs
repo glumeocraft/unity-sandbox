@@ -30,8 +30,14 @@ public class BaseSoldier : MonoBehaviour, IUnit
         Hp = Health;
     }
 
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
         Debug.Log($"clicked soldier {Name}");
     }
+
+    public void OnMouseEnter()
+    {
+        Debug.Log("hello");
+    }
+
 }

@@ -34,7 +34,7 @@ public class UnitManager : MonoBehaviour
         //spawn soldier info
         var team1SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("blue");
         spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
-        spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
+ 
 
     }
 
@@ -93,7 +93,7 @@ public class UnitManager : MonoBehaviour
         {
             foreach (var soldier in unit.soldiers)
             {
-                soldier.GetComponentInChildren<TextMeshProUGUI>().text = $"Attack: {soldier.AttackValue} , Defense: {soldier.DefenseValue} , Special: {soldier.SpecialValue} , Speed: {soldier.Speed} , Health: {soldier.Hp} , Moved: {soldier.RemainingActions}";
+                //soldier.GetComponentInChildren<TextMeshProUGUI>().text = $"Attack: {soldier.AttackValue} , Defense: {soldier.DefenseValue} , Special: {soldier.SpecialValue} , Speed: {soldier.Speed} , Health: {soldier.Hp} , Moved: {soldier.RemainingActions}";
                 soldier.gameObject.SetActive(true);
             }
         } 
