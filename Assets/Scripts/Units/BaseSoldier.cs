@@ -36,4 +36,15 @@ public class BaseSoldier : MonoBehaviour, IUnit
         UnitManager.Instance.SelectedSoldierForMovement = this;
     }
 
+    public void ShowSoldierInfo()
+    {
+        var soldierInfoString = $"Attack: {Attack} , Defense: {Defense} , Special: {SpecialValue} , Speed: {Speed} , Health: {Health}";
+        MenuManager.Instance.ShowSoldierInfoMenu(soldierInfoString);
+    }
+
+    public void HideSoldierInfo()
+    {
+        MenuManager.Instance.HideSoldierInfoMenu();
+    }
+
 }

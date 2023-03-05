@@ -8,7 +8,7 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
 
-    [SerializeField] private GameObject _selectedUnitObject, _tileInfoObject, _tileArmyInfoObject, _gameStateInfoObject, _restartButton, _exitButton, _endMoveButton, _soldiersInfoObject;
+    [SerializeField] private GameObject _selectedUnitObject, _tileInfoObject, _tileArmyInfoObject, _gameStateInfoObject, _restartButton, _exitButton, _endMoveButton, _soldiersInfoObject, _soldierInfoObject;
 
     private void Awake()
     {
@@ -55,7 +55,7 @@ public class MenuManager : MonoBehaviour
 
         if (tile.OccupiedArmies.Count > 0)
         {
-            _tileArmyInfoObject.GetComponentInChildren<TextMeshProUGUI>().text = $"Armies there: \n{tile.OccupiedArmies.Count}";
+            _tileArmyInfoObject.GetComponentInChildren<TextMeshProUGUI>().text = $"Armies: \n{tile.OccupiedArmies.Count}";
             _tileArmyInfoObject.SetActive(true);
         }
         else { _tileArmyInfoObject.SetActive(false); }
@@ -79,5 +79,16 @@ public class MenuManager : MonoBehaviour
     public GameObject GetSoldiersInfoObject()
     {
         return _soldiersInfoObject;
+    }
+
+    public void ShowSoldierInfoMenu(string soldierInfoText)
+    {
+        _soldierInfoObject.GetComponentInChildren<TextMeshProUGUI>().text = soldierInfoText;
+        _soldierInfoObject.SetActive(true);
+    }
+
+    public void HideSoldierInfoMenu()
+    {
+        _soldierInfoObject.SetActive(false);
     }
 }
