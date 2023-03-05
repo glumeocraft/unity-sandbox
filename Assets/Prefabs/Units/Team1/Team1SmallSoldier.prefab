@@ -1191,7 +1191,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8807603607066188864}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3037629145855906166}
+        m_TargetAssemblyTypeName: BaseSoldier, Assembly-CSharp
+        m_MethodName: SetSoldierForMovement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7736267067564640332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,6 +1217,7 @@ GameObject:
   - component: {fileID: 2995289849062547322}
   - component: {fileID: 7796617736235139768}
   - component: {fileID: 969097676089828692}
+  - component: {fileID: 600755588486000447}
   m_Layer: 5
   m_Name: Team1SmallSoldier
   m_TagString: Untagged
@@ -1292,7 +1305,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 1
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -1319,7 +1332,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3037629145855906166}
           m_TargetAssemblyTypeName: BaseSoldier, Assembly-CSharp
-          m_MethodName: SetSoldierForMovement
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1329,6 +1342,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &600755588486000447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736267067564640332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &8061865608878205166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,7 +1410,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredHeight: 50
   m_FlexibleWidth: 1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1

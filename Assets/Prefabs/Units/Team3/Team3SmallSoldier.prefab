@@ -691,7 +691,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7236988122503187769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -3964729058732598}
+        m_TargetAssemblyTypeName: BaseSoldier, Assembly-CSharp
+        m_MethodName: SetSoldierForMovement
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5905668936959460953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,6 +1122,7 @@ GameObject:
   - component: {fileID: -1710053188124547705}
   - component: {fileID: 5515514566113600351}
   - component: {fileID: 189433192038594383}
+  - component: {fileID: 6740577463538722837}
   m_Layer: 5
   m_Name: Team3SmallSoldier
   m_TagString: Untagged
@@ -1224,7 +1237,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: -3964729058732598}
           m_TargetAssemblyTypeName: BaseSoldier, Assembly-CSharp
-          m_MethodName: SetSoldierForMovement
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1234,6 +1247,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &6740577463538722837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736267067564640332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &8061865608878205166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,6 +1270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3352647631155147462}
+  - component: {fileID: 9221392874088008008}
   m_Layer: 5
   m_Name: Soldier
   m_TagString: Untagged
@@ -1271,6 +1299,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 29.96, y: 0}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &9221392874088008008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8061865608878205166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 50
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: 1
+  m_LayoutPriority: 1
 --- !u!1 &8663549104202296479
 GameObject:
   m_ObjectHideFlags: 0

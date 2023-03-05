@@ -36,6 +36,10 @@ public class UnitManager : MonoBehaviour
         var team1SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("blue");
         spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
         spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
+        spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
+        spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
+        spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
+        spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
 
     }
 

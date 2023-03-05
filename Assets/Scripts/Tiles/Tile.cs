@@ -94,18 +94,20 @@ public class Tile : MonoBehaviour
         if (unit.OccupiedTile != null) 
         {
             unit.OccupiedTile.OccupiedArmies.Remove(unit);
+            /**
             int count = 0;
             foreach (var remainingUnit in unit.OccupiedTile.OccupiedArmies)
             {
                 
                 Debug.Log($"{remainingUnit.UnitName}: I remained here!");
-                AdjustRemainingUnitPosition(remainingUnit, count);
+                AdjustRemainingArmyPosOnTile(remainingUnit, count);
                 count++;
             }
+            */
         }
 
         OccupiedArmies.Add(unit);
-        SetUnitPosition(unit);
+        SetArmiesPosOnTile(unit);
 
         unit.OccupiedTile = this;
     }
@@ -115,30 +117,47 @@ public class Tile : MonoBehaviour
         return string.Join("\n", OccupiedArmies.Select(x => x.UnitName));
     }
 
-    private void AdjustRemainingUnitPosition(BaseArmy unit, int count)
+    /// <summary>
+    /// Sets unit position to be always clickable and if there are multiple armies there make them not overlap.
+    /// </summary>
+    private void AdjustRemainingArmyPosOnTile(BaseArmy army, int count)
     {
-        unit.transform.position = unit.OccupiedTile.transform.position + new Vector3(0, 0, -0.1f); ;
+        army.transform.position = army.OccupiedTile.transform.position + new Vector3(0, 0, -0.1f);
         if (count == 1)
         {
-            unit.transform.position = unit.transform.position + new Vector3(0.25f, 0, 0);
+            army.transform.position = army.transform.position + new Vector3(0.25f, 0, 0);
         }
         else if (count == 2)
         {
-            unit.transform.position = unit.transform.position + new Vector3(-0.25f, 0, 0);
+            army.transform.position = army.transform.position + new Vector3(-0.25f, 0, 0);
         }
     }
 
-    private void SetUnitPosition(BaseArmy unit)
+    /// <summary>
+    /// Sets unit position to be always clickable and if there are multiple armies there make them not overlap.
+    /// </summary>
+    private void SetArmiesPosOnTile(BaseArmy army)
     {
-        unit.transform.position = transform.position + new Vector3(0, 0, -0.1f);
-        if (OccupiedArmies.Count == 2)
+        army.transform.position = transform.position + new Vector3(0, 0, -0.1f);
+        if (OccupiedArmies.Count == 1) return;
+
+
+        var horizontalPosAdjustment = -0.25f;
+        foreach(var occupiedArmy in OccupiedArmies)
+        {
+            occupiedArmy.transform.position = transform.position;
+            occupiedArmy.transform.position = occupiedArmy.transform.position + new Vector3(horizontalPosAdjustment, 0, -0.1f);
+            horizontalPosAdjustment += 0.25f;
+        }
+
+        /**if (OccupiedArmies.Count == 2)
         {
             unit.transform.position = unit.transform.position + new Vector3(0.25f, 0, 0);
         }
         else if (OccupiedArmies.Count == 3)
         {
             unit.transform.position = unit.transform.position + new Vector3(-0.25f, 0, 0);
-        }
+        }*/
     }
 
     public void RemoveOccupyingArmy(BaseArmy army)
