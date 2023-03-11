@@ -44,13 +44,35 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "xunit": {
+            "Common.Logging.NLogNetStandard": {
+              "target": "Package",
+              "version": "[1.0.7072.33966, )"
+            },
+            "Microsoft.TestPlatform.TestHost": {
+              "target": "Package",
+              "version": "[17.4.0, )"
+            },
+            "Xunit.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.6.1, )"
+            },
+            "xunit.analyzers": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "xunit.assert": {
               "target": "Package",
               "version": "[2.4.2, )"
             },
             "xunit.core": {
               "target": "Package",
               "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.5, )"
             }
           },
           "imports": [

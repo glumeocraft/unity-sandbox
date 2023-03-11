@@ -11,18 +11,29 @@ namespace BattleCalculator
 
         public List<List<IUnit>> SimulateBattle(List<IUnit> firstPlayerUnits, List<IUnit> secondPlayerUnits)
         {
-            // Get AttackStrength
+            // Get AttackPower
             var player1AttackPower = SumAttackPower(firstPlayerUnits);
             Console.WriteLine("Player1AttackPower: " + player1AttackPower);
             var player2AttackPower = SumAttackPower(secondPlayerUnits);
             Console.WriteLine("Player2AttackPower " + player2AttackPower);
 
-            // Get DefenseStrength
+            // Get DefensePower
             var player1DefensePower = SumDefensePower(firstPlayerUnits);
             Console.WriteLine("Player1DefensePower: " + player1DefensePower);
-
+            
             var player2DefensePower = SumDefensePower(secondPlayerUnits);
             Console.WriteLine("Player2DefensePower: " + player2DefensePower);
+
+            // Get SpecialPower
+            var player1SpecialPower = SumSpecialPower(firstPlayerUnits);
+            Console.WriteLine("Player1 SpecialPower: " + player1SpecialPower);
+
+            var player2SpecialPower = SumSpecialPower(secondPlayerUnits);
+            Console.WriteLine("Player2 SpecialPower: " + player2SpecialPower);
+
+            var PlayerWithAdvantage = CalculateAdvantage(player1SpecialPower, player2SpecialPower);
+
+
 
             // Calculate Attacks, Defense
             var player1AttackRoll = CalculateAttackRoll(player1AttackPower);
@@ -38,7 +49,7 @@ namespace BattleCalculator
             var player2DefenseRoll = CalculateDefenseOrArmorRoll(player2DefensePower);
             Console.WriteLine("Player2DefenseRoll: " + player2DefenseRoll);
 
-            // Calculate Hit
+            // 11. Calculate Hit
             var player1Hit = player1AttackRoll - player2DefenseRoll;
 
             Console.WriteLine("Player1Hit: " + player1Hit);
@@ -46,6 +57,19 @@ namespace BattleCalculator
             var player2Hit = player2AttackRoll - player1DefenseRoll;
             Console.WriteLine("Player2Hit: " + player2Hit);
 
+            // 12. Determine target unit(s) todo: Egyelőre mindig az első egységet választja a listában
+            var player1Target = firstPlayerUnits[0];
+            var player2Target = secondPlayerUnits[0];
+
+            // 15. Apply Special effects on target(s) Instant/Delayed: most vagy következő körben 1 damage
+
+            // calculate for firstPLayer
+            var specialType = DetermineSpecialTypeForAPlayer(PlayerWithAdvantage, firstPlayerUnits[0].Player);
+            CalculateSpecialDamageForAPlayer(player2Target, specialType);
+
+            // 2nd player special move
+            var specialTypeForSecondPlayer = DetermineSpecialTypeForAPlayer(PlayerWithAdvantage, secondPlayerUnits[0].Player);
+            CalculateSpecialDamageForAPlayer(player1Target, specialTypeForSecondPlayer);
 
             // Calculate Damage
             CalculateDamageForAPlayer(firstPlayerUnits, player2Hit);
@@ -115,6 +139,33 @@ namespace BattleCalculator
             return defensePower;
         }
 
+        private int SumSpecialPower(List<IUnit> units)
+        {
+            var specialPower = 0;
+
+            foreach (var unit in units)
+            {
+                if (unit.CurrentMove == Moves.Special)
+                {
+                    specialPower += unit.SpecialValue;
+                }
+            }
+            return specialPower;
+        }
+
+        private Player CalculateAdvantage(int firstPLayerSpecial, int secondPLayerSpecial)
+        {
+            if (firstPLayerSpecial > secondPLayerSpecial)
+            {
+                return Player.FirstPlayer;
+            }
+            else if (secondPLayerSpecial > firstPLayerSpecial)
+            {
+                return Player.SecondPlayer;
+            }
+            else return Player.NoOne;
+        }
+
         private int CalculateAttackRoll(int attackPower)
         {
             int attackRoll = 0;
@@ -155,9 +206,56 @@ namespace BattleCalculator
                 {
                     damage = 0;
                 }
+                
                 unit.Hp -= damage;
                 Console.WriteLine("Player " + unit.UserId + "'s remaining HP is: " + unit.Hp);
             }
         }
+
+        public void CalculateSpecialDamageForAPlayer(IUnit unit, SpecialEffectType attackerSpecialType)
+        {
+            var damage = 0;
+            // Apply DelayedSpecial
+            if (unit.HasDelayedSpecial)
+            {
+                damage++;
+                unit.HasDelayedSpecial = false;
+            }
+            // Apply Current Instant Special
+            if (attackerSpecialType == SpecialEffectType.Instant)
+            {
+                damage++;
+            }
+            // Add Current Delayed Special to uit
+            if (attackerSpecialType == SpecialEffectType.Delayed)
+            {
+                unit.HasDelayedSpecial = true;
+            }
+
+            unit.Hp -= damage;
+            Console.WriteLine("Player " + unit.UserId + "'s remaining HP is: " + unit.Hp);
+        }
+
+        public SpecialEffectType DetermineSpecialTypeForAPlayer(Player playerWithAdvantage, Player currentPlayer)
+        {
+            if (playerWithAdvantage == currentPlayer) // HA A (nyert) akkor Instant támadás, ha B akkor Delayed
+            {
+                return SpecialEffectType.Instant;
+            }
+            else return SpecialEffectType.Delayed;
+        }
     }
+}
+public enum Player
+{
+    NoOne = 0,
+    FirstPlayer = 1,
+    SecondPlayer = 2,
+    ThirdPlayer  = 3
+}
+
+public enum SpecialEffectType
+{
+    Instant = 0,
+    Delayed = 1,
 }
