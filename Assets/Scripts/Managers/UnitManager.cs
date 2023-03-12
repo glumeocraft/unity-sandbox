@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using TMPro;
+using BattleCalculator;
 
 public class UnitManager : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class UnitManager : MonoBehaviour
 
         //spawn soldier info
         var team1SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("blue");
+        team1SmallSoldierPrefab.Player = Player.FirstPlayer;
         spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
         spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
         spawnedTeam1Army.AddSoldier(team1SmallSoldierPrefab);
@@ -53,8 +55,11 @@ public class UnitManager : MonoBehaviour
         AllArmies.Add(spawnedTeam2Army);
 
         //spawn soldier info
-        var team1SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("red");
-        spawnedTeam2Army.AddSoldier(team1SmallSoldierPrefab);
+        var team2SmallSoldierPrefab = GetBaseSoldierByName<BaseSoldier>("red");
+        team2SmallSoldierPrefab.Player = Player.SecondPlayer;
+        spawnedTeam2Army.AddSoldier(team2SmallSoldierPrefab);
+        spawnedTeam2Army.AddSoldier(team2SmallSoldierPrefab);
+        spawnedTeam2Army.AddSoldier(team2SmallSoldierPrefab);
     }
 
     public void SpawnPinkArmy()
@@ -109,5 +114,47 @@ public class UnitManager : MonoBehaviour
     private T GetBaseSoldierByName<T>(string name) where T : BaseSoldier
     {
         return (T)_soldiers.Where(u => u.SoldierPrefab.Name.ToUpper().Contains(name.ToUpper())).First().SoldierPrefab;
+    }
+
+    public void RemoveDeadSoldiers()
+    {
+        foreach (var army in AllArmies)
+        {
+            foreach(var soldier in army.soldiers)
+            {
+                Debug.Log($"soldier hp is {soldier.Hp}");
+                if (soldier.Hp <= 0)
+                {
+                 
+                    soldier.IsDead = true;
+                    Debug.Log($"marked soldier for dead");
+                }
+            }
+            army.RemoveDeadSoldiers();
+            
+        }
+
+        
+
+    }
+
+    public void RemoveEmptyArmies()
+    {
+        foreach (var army in AllArmies)
+        {
+            Debug.Log($"soldier count is {army.soldiers.Count}");
+            if (army.soldiers.Count <= 0)
+            {
+                Debug.Log($"destroy army");
+                army.ToBeRemoved = true;
+                //Destroy(army);
+            }
+        }
+        CleanAllArmies();
+    }
+
+    private void CleanAllArmies()
+    {
+        AllArmies.RemoveAll(army => army.ToBeRemoved);
     }
 }

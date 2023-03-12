@@ -12,5 +12,8 @@
         bool NewEntry { get; set; }
         int SpecialValue { get; set; }
         int UserId { get; set; }
+        int MaxHP { get; set; }
+        Player Player { get; set; }
+        public bool HasDelayedSpecial { get; set; }
     }
 }

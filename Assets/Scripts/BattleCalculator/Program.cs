@@ -3,17 +3,10 @@ using System.Collections.Generic;
 
 namespace BattleCalculator
 {
-    public class Program
+    public static class Program
     {
         static void Main(string[] args)
         {
-
-            // TEszt:
-            // lefuttatjuk a harcok x szer, beadva hogy mit csinál végig, és végeredményben átlagban mennyi lett a:
-            // nulla sebzés, nulla sebzés mind2nél, 1 körös kill (fatality), hány körig tartot, átlag hp különbség, hp difference
-            // specialt lefejleszteni!
-            //teszt eset amokikor előre megadjuk, hogy mik a lépések
-            // sok játékosnál összekéne adni az attackRollokat *0.65% és defenseRoll is!
             // Creating Armies
             var sampleUnit1 = new convictor(1);
             var player1Army = new List<IUnit>() { sampleUnit1 };
@@ -42,9 +35,8 @@ namespace BattleCalculator
                 {
                     Console.WriteLine("Player 2 Died!");
                 }
-            } while (sampleUnit1.Hp > 0 && sampleUnit2.Hp > 0);
+            } while (sampleUnit1.Hp > 0 && sampleUnit2.Hp > 0); // Ez így csak 1 v 1 működik
             Console.ReadLine();
-
 
         }
 
@@ -76,6 +68,11 @@ namespace BattleCalculator
             public bool NewEntry { get; set; } = false;
             public int Direction { get; set; } = 1;
             public Moves CurrentMove { get; set; } = Moves.Attack;
+            public int MaxHP { get; set; } = 30;
+            public Player Player { get; set; }
+            public bool HasDelayedSpecial { get; set; }
+
+            //unitType enum
 
         }
 

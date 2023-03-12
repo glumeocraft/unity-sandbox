@@ -7,6 +7,7 @@ public class BaseArmy : MonoBehaviour
     public Faction Faction;
     public string UnitName;
     public List<BaseSoldier> soldiers;
+    public bool ToBeRemoved = false;
 
     private void OnMouseDown()
     {
@@ -34,8 +35,14 @@ public class BaseArmy : MonoBehaviour
         soldiers.Add(spawnedSoldier);
     }
 
-    public void RemoveSoldier(BaseSoldier soldier)
+    public void RemoveDeadSoldiers()
     {
-        soldiers.Remove(soldier);
+        soldiers.RemoveAll(soldier => soldier.IsDead);
+
+    }
+
+    public void RemoveSoldier(BaseSoldier unit)
+    {
+        soldiers.Remove(unit);
     }
 }

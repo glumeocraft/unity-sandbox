@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BaseSoldier : MonoBehaviour, IUnit
 {
-    public int Speed, Armor, Attack, Special, Health, Defense;
+    public int Speed, Armor, Attack, Special, MaxHealth, Defense;
     public string Name;
     public int RemainingActions;
    
@@ -21,13 +21,23 @@ public class BaseSoldier : MonoBehaviour, IUnit
     public int SpecialValue { get; set; }
     public int UserId { get; set; }
     public int Hp { get; set; }
+    public int MaxHP { get; set; }
+    public Player Player { get; set; }
+    public bool HasDelayedSpecial { get; set; }
+    public bool IsDead { get; set; }
+
+
 
     void Awake()
     {
         ArmorValue = Armor;
         AttackValue = Attack;
         DefenseValue = Defense;
-        Hp = Health;
+        MaxHP = MaxHealth;
+        Debug.Log("hp set to max hp");
+        Hp = MaxHealth;
+        IsDead = false;
+
     }
 
     public void SetSoldierForMovement()
@@ -38,7 +48,7 @@ public class BaseSoldier : MonoBehaviour, IUnit
 
     public void ShowSoldierInfo()
     {
-        var soldierInfoString = $"Attack: {Attack} , Defense: {Defense} , Special: {SpecialValue} , Speed: {Speed} , Health: {Health}";
+        var soldierInfoString = $"Attack: {Attack} , Defense: {Defense} , Special: {SpecialValue} , Speed: {Speed} , Health: {Hp}";
         MenuManager.Instance.ShowSoldierInfoMenu(soldierInfoString);
     }
 

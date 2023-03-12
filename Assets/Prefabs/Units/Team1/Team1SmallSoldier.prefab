@@ -1263,7 +1263,7 @@ MonoBehaviour:
   Armor: 3
   Attack: 6
   Special: 0
-  Health: 25
+  MaxHealth: 25
   Defense: 4
   Name: Blue dick (Phalanx)
   RemainingActions: 1

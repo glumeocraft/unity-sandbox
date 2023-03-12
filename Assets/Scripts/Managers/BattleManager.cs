@@ -24,6 +24,7 @@ public class BattleManager : MonoBehaviour
             Debug.Log($"battle started on: {tile.TileName}");
             foreach (var army in tile.OccupiedArmies)
             {
+                Debug.Log($"one army in {tile.OccupiedArmies.Count}");
                 var playerArmy = army.soldiers;
                 foreach (var soldier in playerArmy)
                 {
@@ -40,9 +41,11 @@ public class BattleManager : MonoBehaviour
 
             }
             var battleCalc = new Battle();
+            Debug.Log("starting battle");
             battleCalc.SimulateBattle(player1Units, player2Units);
             
         }
+
         
         GameManager.Instance.UpdateGameState(GameManager.GameState.Move);
     }

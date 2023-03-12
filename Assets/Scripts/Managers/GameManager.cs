@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Game state update to spawn units started");
                 UnitManager.Instance.SpawnBlueArmy();
                 UnitManager.Instance.SpawnRedArmy();
-                UnitManager.Instance.SpawnPinkArmy();
+                //UnitManager.Instance.SpawnPinkArmy();
                 UpdateGameState(GameState.Move);
                 break;
             case GameState.Move:
@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
             case GameState.Fight:
                 MenuManager.Instance.DisableEndMoveButton();
                 BattleManager.Instance.StartFights();
+                UnitManager.Instance.RemoveDeadSoldiers();
+                //UnitManager.Instance.RemoveEmptyArmies();
                 break;
         }
 

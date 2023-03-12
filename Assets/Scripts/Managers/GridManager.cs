@@ -120,6 +120,7 @@ public class GridManager : MonoBehaviour
                 tilesWithBattle.Add(_tiles[key]);
             }
         }
+        Debug.Log($"Found battle tiles: {tilesWithBattle.Count}");
         return tilesWithBattle;
     }
 }
